@@ -1,15 +1,14 @@
+from os import system
 from functions import provision_device
-
+import sys
 
 def main():
-    print("What needs to be the url?")
-    provision_url = str(input("url: "))
-    with open("device_list.txt") as file:
-        device_list = file.readlines()
-        device_list = [line.rstrip() for line in device_list]
-
-    for device in device_list:
-        provision_device(device, provision_url, "admin", "admin")
+    if len(sys.argv) > 1:
+        provision_device(sys.argv[1], sys.argv[2], "admin", "admin")
+    else:
+        print("What needs to be the url?")
+        question = str(input("url: "))
+        provision_device(question, "device_list.txt", "admin", "admin")
 
 if __name__ == '__main__':
     main()
